@@ -1,0 +1,27 @@
+- product = @product
+.row
+  .span10.offset1
+    %form{action:'/products/features' , method: 'post'}
+      %input{:name => 'id', :value => product.id, :type => 'hidden'}
+      %h3= product.vendor + ' ' + product.title
+      - if !product.images.empty?
+        .polaroid
+          = link_to image_tag(product.images.first.small), '#modal-' + product.id.to_s, :'data-toggle' => 'modal'
+
+      %hr
+
+      %ul
+        - @featurefields.each_with_index do |metafield, index|
+          %li
+            %h5 Feature #{index + 1} - #{metafield.key}
+            %textarea{:name => 'feature[]', :height => 15, :width => 80}
+              = metafield.value
+
+        - (6 - @featurefields.size).times do |index|
+          %li
+            %h5 New Feature #{@featurefields.size + index + 1}
+            %textarea{:name => 'feature[]', :height => 15, :width => 80}
+
+      %hr
+
+      %input{type: 'submit'}

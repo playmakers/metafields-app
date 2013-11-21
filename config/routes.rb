@@ -10,6 +10,7 @@ PlaymakersApp::Application.routes.draw do
   end
 
   get 'products/features'    => 'products#features'
+  post 'products/features'    => 'products#features'
   get 'products/accessories' => 'products#accessories'
 
   root :to => 'home#index'
