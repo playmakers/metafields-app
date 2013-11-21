@@ -9,6 +9,9 @@ PlaymakersApp::Application.routes.draw do
     delete 'logout' => :destroy
   end
 
+  get 'products/features'    => 'products#features'
+  get 'products/accessories' => 'products#accessories'
+
   root :to => 'home#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
