@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  
+
+  skip_before_filter  :verify_authenticity_token
+
   # Ask shop to authorize app again if additional permissions are required
   # rescue_from ActiveResource::ForbiddenAccess do
   #   session[:shopify] = nil
