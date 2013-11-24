@@ -1,0 +1,71 @@
+- product = @product
+.row.metafields
+  .span10.offset1
+    %form{action:'/products/metafields' , method: 'post'}
+      %input{:name => 'id', :value => product.id, :type => 'hidden'}
+      .thumbnail
+        %h3= product.vendor + ' ' + product.title
+        - if !product.images.empty?
+          = image_tag(product.images.first.small)
+
+      %hr
+
+      #accordion.accordion
+        .accordion-group.features
+          .accordion-heading
+            %a.accordion-toggle{:'data-toggle' => "collapse", :'data-parent' => "#accordion", :href => "#features"}
+              Features
+
+          #features.accordion-body.collapse.in
+            .accordion-inner
+
+              %ul.features.unstyled
+                - featurefields = @metafields["features"] || []
+                - featurefields.each_with_index do |metafield, index|
+                  %li
+                    %h5 Feature #{index + 1}
+                    %textarea{:name => "metafields[features][feature#{index}]"}
+                      = metafield.value
+
+                - (6 - featurefields.size).times do |index|
+                  %li
+                    %h5 Feature #{featurefields.size + index + 1}
+                    %textarea{:name => "metafields[features][feature#{featurefields.size + index}]"}
+
+
+        .accordion-group.review
+          .accordion-heading
+            %a.accordion-toggle{:'data-toggle' => "collapse", :'data-parent' => "#accordion", :href => "#review"}
+              Review
+
+          #review.accordion-body.collapse
+            .accordion-inner
+              %textarea{:name => "metafields[review][text]"}
+                - if reviewfields = @metafields["review"]
+                  = reviewfields.first.value
+
+
+        .accordion-group.accessories
+          .accordion-heading
+            %a.accordion-toggle{:'data-toggle' => "collapse", :'data-parent' => "#accordion", :href => "#accessories"}
+              Zubehör
+
+          #accessories.accordion-body.collapse
+            .accordion-inner
+              %textarea{:name => "metafields[accessories][text]"}
+                - if reviewfields = @metafields["accessories"]
+                  = reviewfields.first.value
+
+
+        .accordion-group.fitting
+          .accordion-heading
+            %a.accordion-toggle{:'data-toggle' => "collapse", :'data-parent' => "#accordion", :href => "#fitting"}
+              Fitting
+
+          #fitting.accordion-body.collapse
+            .accordion-inner
+              %textarea{:name => "metafields[fitting][text]"}
+                - if reviewfields = @metafields["fitting"]
+                  = reviewfields.first.value
+
+      %input{type: 'submit', value: 'Save'}

@@ -3,31 +3,32 @@ class ProductsController < ApplicationController
   before_action :local_login
   around_filter :shopify_session
 
-  def features
+  def metafields
     id = params[:id]
     @product = ShopifyAPI::Product.find(id)
-    @featurefields = @product.metafields.select { |metafield|
-      metafield.namespace == 'features'
-    }
 
-    if features = params[:feature]
-      @featurefields.each(&:destroy)
+    if metafields = params[:metafields]
+      @product.metafields.each(&:destroy)
 
-      Array(features).each_with_index do |feature, index|
-        if feature.present?
-          @product.add_metafield(ShopifyAPI::Metafield.new({
-            :description => "Feature #{index}",
-            :namespace   => 'features',
-            :key         => "feature#{index}",
-            :value       => feature,
-            :value_type  => 'string'
-          }))
+      Array(metafields).each do |namespace, metafield|
+        metafield.each do |key, value|
+          if value.present?
+            @product.add_metafield(ShopifyAPI::Metafield.new({
+              # :description => "#{namespace} #{key}",
+              :namespace   => namespace,
+              :key         => key,
+              :value       => value,
+              :value_type  => 'string'
+            }))
+          end
         end
       end
+    end
 
-      @featurefields = @product.metafields.select { |metafield|
-        metafield.namespace == 'features'
-      }
+    @metafields = @product.metafields.inject({}) do |hash, metafield|
+      hash[metafield.namespace] ||= []
+      hash[metafield.namespace] << metafield
+      hash
     end
   end
 
