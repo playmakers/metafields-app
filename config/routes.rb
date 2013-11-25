@@ -9,8 +9,10 @@ PlaymakersApp::Application.routes.draw do
     delete 'logout'             => :destroy
   end
 
+  get  'images'               => 'images#show'
+  get  'products'             => 'products#show'
   get  'products/metafields'  => 'products#metafields'
-  post 'products/metafields' => 'products#metafields'
+  post 'products/metafields'  => 'products#metafields'
 
   root :to => 'home#index'
 end

@@ -3,39 +3,39 @@ class ProductsController < ApplicationController
   before_action :local_login
   around_filter :shopify_session
 
+  def show
+    @products = ShopifyAPI::Product.find(:all, :params => {
+      :collection_id => 13340861
+    })
+  end
+
   def metafields
     id = params[:id]
-    @product = ShopifyAPI::Product.find(id)
+    @product = ShopifyAPI::Product.find(id, :params => { :fields => [:id, :title, :vendor].join(',') })
+    metafields = @product.metafields
 
-    if metafields = params[:metafields]
-      @product.metafields.each(&:destroy)
+    if new_metafields = params[:metafields]
+      metafields.each(&:destroy)
 
-      Array(metafields).each do |namespace, metafield|
-        metafield.each do |key, value|
+      metafields = Array(new_metafields).map do |namespace, metafield|
+        metafield.map do |key, value|
           if value.present?
             @product.add_metafield(ShopifyAPI::Metafield.new({
               # :description => "#{namespace} #{key}",
               :namespace   => namespace,
               :key         => key,
-              :value       => value,
+              :value       => Array(value).join('|'),
               :value_type  => 'string'
             }))
           end
         end
-      end
+      end.flatten.compact
     end
 
-    @metafields = @product.metafields.inject({}) do |hash, metafield|
+    @metafields = metafields.inject({}) do |hash, metafield|
       hash[metafield.namespace] ||= []
       hash[metafield.namespace] << metafield
       hash
-    end
-  end
-
-  private
-  def local_login
-    if ENV['SHOP'] && ENV['TOKEN']
-      session[:shopify] ||= ShopifyAPI::Session.new(ENV['SHOP'].dup, ENV['TOKEN'])
     end
   end
 end

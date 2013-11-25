@@ -9,4 +9,11 @@ class ApplicationController < ActionController::Base
   #   flash[:notice] = "This app requires additional permissions, please log in and authorize it."
   #   redirect_to controller: :sessions, action: :create
   # end
+
+  private
+  def local_login
+    if ENV['SHOP'] && ENV['TOKEN']
+      session[:shopify] ||= ShopifyAPI::Session.new(ENV['SHOP'].dup, ENV['TOKEN'])
+    end
+  end
 end

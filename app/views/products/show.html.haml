@@ -1,0 +1,11 @@
+.row.metafields
+  .span10.offset1
+
+    %ul
+    - @products.each do |image|
+      %li
+        = image_tag(image.public_url)
+
+        = image.inspect
+
+
