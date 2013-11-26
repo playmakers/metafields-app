@@ -1,11 +1,11 @@
 .row.metafields
   .span10.offset1
 
-    %ul
-    - @products.each do |image|
+    %ul.unstyled
+    - @products.each do |product|
       %li
-        = image_tag(image.public_url)
+        %h3= product.vendor + ' ' + product.title
+        - if !product.images.empty?
+          = image_tag(product.images.first.small)
 
-        = image.inspect
-
-
+        %input{type: 'text', value:product.id}
