@@ -4,7 +4,7 @@
     %form{action:'/products/metafields' , method: 'post'}
       %input{:name => 'id', :value => product.id, :type => 'hidden'}
       .thumbnail
-        %h3= product.vendor + ' ' + product.title
+        %h3= product.vendor + ' ' + product.title + ' - ' + product.id.to_s
 
       %hr
 
@@ -23,17 +23,18 @@
                   %li
                     %h5 Feature #{index + 1}
                     - feature = metafield.value.to_s.split('|')
-                    %input{:type =>"text", :name => "metafields[features][feature#{index}][]", :value => feature[0]}
+                    %input{:type =>"text", :name => "metafields[features][feature#{index}][]", :value => "#{product.id}_#{index}.png"}
                     %input{:type =>"text", :name => "metafields[features][feature#{index}][]", :value => feature[1]}
                     %textarea{:name => "metafields[features][feature#{index}][]"}
                       = feature[2]
 
                 - (8 - featurefields.size).times do |index|
+                  - i = featurefields.size + index + 1
                   %li
-                    %h5 Feature #{featurefields.size + index + 1}
-                    %input{:type =>"text", :name => "metafields[features][feature#{index}][]"}
-                    %input{:type =>"text", :name => "metafields[features][feature#{index}][]"}
-                    %textarea{:name => "metafields[features][feature#{featurefields.size + index}][]"}
+                    %h5 Feature #{i}
+                    %input{:type =>"text", :name => "metafields[features][feature#{i}][]", :value => "#{product.id}_#{i}.png"}
+                    %input{:type =>"text", :name => "metafields[features][feature#{i}][]"}
+                    %textarea{:name => "metafields[features][feature#{i - 1}][]"}
 
 
         .accordion-group.review
