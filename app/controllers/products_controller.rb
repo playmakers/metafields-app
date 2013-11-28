@@ -24,7 +24,7 @@ class ProductsController < ApplicationController
               # :description => "#{namespace} #{key}",
               :namespace   => namespace,
               :key         => key,
-              :value       => Array(value).join('|'),
+              :value       => render_value(value),
               :value_type  => 'string'
             }))
           end
@@ -36,6 +36,23 @@ class ProductsController < ApplicationController
       hash[metafield.namespace] ||= []
       hash[metafield.namespace] << metafield
       hash
+    end
+  end
+
+  private
+  def render_value(value)
+    if value.is_a?(Array)
+      value.join('|')
+    elsif value.include?(';')
+      header, *body = value.split("\n")
+      header = header.split(";").join('</th><th>')
+      body   = body.map do |line|
+        line.split(";").join('</td><td>')
+      end.join('</td></tr><tr><td>')
+
+      "<table><thead><tr><th>#{header}</th></tr></thead><tr><td>#{body}</td></tr></table>"
+    else
+      value
     end
   end
 end

@@ -18,35 +18,27 @@
             .accordion-inner
 
               %ul.features.unstyled
-                - featurefields = @metafields["features"] || []
-                - featurefields.each_with_index do |metafield, index|
+                - fields = @metafields["features"] || []
+                - 8.times do |index|
+                  - field = fields.shift || ShopifyAPI::Metafield.new
                   %li
                     %h5 Feature #{index + 1}
-                    - feature = metafield.value.to_s.split('|')
-                    %input{:type =>"text", :name => "metafields[features][feature#{index}][]", :value => "#{product.id}_#{index}.png"}
+                    - feature = field.value.to_s.split('|')
+                    %input{:type =>"text", :name => "metafields[features][feature#{index}][]", :value => "#{product.id}_#{index+1}.png"}
                     %input{:type =>"text", :name => "metafields[features][feature#{index}][]", :value => feature[1]}
                     %textarea{:name => "metafields[features][feature#{index}][]"}
                       = feature[2]
 
-                - (8 - featurefields.size).times do |index|
-                  - i = featurefields.size + index + 1
-                  %li
-                    %h5 Feature #{i}
-                    %input{:type =>"text", :name => "metafields[features][feature#{i}][]", :value => "#{product.id}_#{i}.png"}
-                    %input{:type =>"text", :name => "metafields[features][feature#{i}][]"}
-                    %textarea{:name => "metafields[features][feature#{i - 1}][]"}
+        / .accordion-group.review
+        /   .accordion-heading
+        /     %a.accordion-toggle{:'data-toggle' => "collapse", :'data-parent' => "#accordion", :href => "#review"}
+        /       Review
 
-
-        .accordion-group.review
-          .accordion-heading
-            %a.accordion-toggle{:'data-toggle' => "collapse", :'data-parent' => "#accordion", :href => "#review"}
-              Review
-
-          #review.accordion-body.collapse
-            .accordion-inner
-              %textarea{:name => "metafields[review][text]"}
-                - if reviewfields = @metafields["review"]
-                  = reviewfields.first.value
+        /   #review.accordion-body.collapse
+        /     .accordion-inner
+        /       %textarea{:name => "metafields[review][text]"}
+        /         - if reviewfields = @metafields["review"]
+        /           = reviewfields.first.value
 
 
         .accordion-group.accessories
@@ -57,14 +49,11 @@
           #accessories.accordion-body.collapse
             .accordion-inner
               %ul.accessories.unstyled
-                - accessoriesfields = @metafields["accessories"] || []
-                - accessoriesfields.each_with_index do |metafield, index|
+                - fields = @metafields["accessories"] || []
+                - 3.times do |index|
+                  - field = fields.shift || ShopifyAPI::Metafield.new
                   %li
-                    %input{:type =>"text", :name => "metafields[accessories][accessor#{index}]", :value => metafield.value}
-
-                - (4 - accessoriesfields.size).times do |index|
-                  %li
-                    %input{:type =>"text", :name => "metafields[accessories][accessor#{accessoriesfields.size + index}]"}
+                    %input{:type =>"text", :name => "metafields[accessories][accessor#{index}]", :value => field.value}
 
         .accordion-group.fitting
           .accordion-heading
@@ -73,8 +62,12 @@
 
           #fitting.accordion-body.collapse
             .accordion-inner
-              %textarea{:name => "metafields[fitting][text]"}
-                - if reviewfields = @metafields["fitting"]
-                  = reviewfields.first.value
+              %ul.accessories.unstyled
+                - fields = @metafields["fitting"] || []
+                - 3.times do |index|
+                  - field = fields.shift || ShopifyAPI::Metafield.new
+                  %li
+                    %textarea{:name => "metafields[fitting][fitting#{index}]"}~ collapse_table(field.value)
 
-      %input{type: 'submit', value: 'Save'}
+      %button{type: 'submit'}
+        Save
