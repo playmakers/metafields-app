@@ -23,11 +23,14 @@
                   - field = fields.shift || ShopifyAPI::Metafield.new
                   %li
                     %h5 Feature #{index + 1}
+                    - defaults = Array(defaults(product.id)['features'][index]) rescue []
                     - feature = field.value.to_s.split('|')
-                    %input{:type =>"text", :name => "metafields[features][feature#{index}][]", :value => "#{product.id}_#{index+1}.png"}
-                    %input{:type =>"text", :name => "metafields[features][feature#{index}][]", :value => feature[1]}
-                    %textarea{:name => "metafields[features][feature#{index}][]"}
-                      = feature[2]
+                    - value = feature[0] || defaults[0] # || "#{product.id}_#{index+1}.png"
+                    %input{:type =>"text", :name => "metafields[features][feature#{index}][]", :value => value}
+                    - value = feature[1] || defaults[1]
+                    %input{:type =>"text", :name => "metafields[features][feature#{index}][]", :value => value}
+                    - value = feature[2] || defaults[2]
+                    %textarea{:name => "metafields[features][feature#{index}][]"}~ value
 
         / .accordion-group.review
         /   .accordion-heading
@@ -52,8 +55,9 @@
                 - fields = @metafields["accessories"] || []
                 - 3.times do |index|
                   - field = fields.shift || ShopifyAPI::Metafield.new
+                  - value = field.value || defaults(product.id)['accessories'][index] rescue nil
                   %li
-                    %input{:type =>"text", :name => "metafields[accessories][accessor#{index}]", :value => field.value}
+                    %input{:type =>"text", :name => "metafields[accessories][]", :value => value}
 
         .accordion-group.fitting
           .accordion-heading
@@ -66,8 +70,9 @@
                 - fields = @metafields["fitting"] || []
                 - 3.times do |index|
                   - field = fields.shift || ShopifyAPI::Metafield.new
+                  - value = field.value || defaults(product.id)['fitting'][index] rescue nil
                   %li
-                    %textarea{:name => "metafields[fitting][fitting#{index}]"}~ collapse_table(field.value)
+                    %textarea{:name => "metafields[fitting][]"}~ collapse_table(value)
 
       %button{type: 'submit'}
         Save

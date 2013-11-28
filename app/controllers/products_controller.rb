@@ -19,12 +19,12 @@ class ProductsController < ApplicationController
 
       metafields = Array(new_metafields).map do |namespace, metafield|
         metafield.map do |key, value|
-          if value.present?
+          if value = render_value(value)
             @product.add_metafield(ShopifyAPI::Metafield.new({
               # :description => "#{namespace} #{key}",
               :namespace   => namespace,
               :key         => key,
-              :value       => render_value(value),
+              :value       => value,
               :value_type  => 'string'
             }))
           end
@@ -42,7 +42,9 @@ class ProductsController < ApplicationController
   private
   def render_value(value)
     if value.is_a?(Array)
-      value.join('|')
+      if value[1].present?
+        value.join('|')
+      end
     elsif value.include?(';')
       header, *body = value.split("\n")
       header = header.split(";").join('</th><th>')
@@ -51,7 +53,7 @@ class ProductsController < ApplicationController
       end.join('</td></tr><tr><td>')
 
       "<table><thead><tr><th>#{header}</th></tr></thead><tr><td>#{body}</td></tr></table>"
-    else
+    elsif value.present?
       value
     end
   end
