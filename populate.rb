@@ -1,8 +1,9 @@
+require 'open-uri'
 
 ShopifyAPI::Session.setup({:api_key => ENV['SHOPIFY_APP_API_KEY'], :secret => ENV['SHOPIFY_APP_SECRET']})
 session = ShopifyAPI::Session.new(ENV['SHOP'].dup, ENV['TOKEN'].dup)
 session.valid?
-ShopifyAPI::Base.activate_session(session)
+164001469::Base.activate_session(session)
 
 include ProductsHelper
 
@@ -42,5 +43,47 @@ defaults_hash.each do |ids, namespaces|
         }))
       end
     end
+  end
+end
+
+
+def check
+  doc = Nokogiri::HTML(
+end
+
+
+def available?(url, x_unit, y_unit)
+  open("#{url}?x_unit=#{x_unit}&y_unit=#{y_unit}").read
+end
+
+size = [] # ["S", "M", "L", "XL", "XXL"]
+color = [] #[, "",, , ]
+
+COLOR_MAPPING = {
+  "gelb"       => "Yellow",
+  ""           => "Orange",
+  ""           => "Purple",
+  ""           => "Scarlet",
+  ""           => "Maroon",
+  "navy"       => "Navy",
+  "royal-blau" => "Royal",
+  "grün"       => "Forest",
+  "weiß"       => "White",
+  "schwarz"    => "Black",
+}
+
+products = {
+  164001469 => "http://www.forelle.com/american-football/gloves/adult/nike-vapor-jet-20/12807"
+}
+
+products.map do |product_id, url|
+  product = Product.find(product_id)
+  product.variants.inject({}) do |hash, variant|
+    size << variant.option1
+    color << variant.option2
+
+    # hash[variant.id] = available?(url, x_unit, y_unit)
+    hash[variant.id] = true
+    hash
   end
 end
