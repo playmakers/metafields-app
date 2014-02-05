@@ -4,3 +4,8 @@
 require File.expand_path('../config/application', __FILE__)
 
 PlaymakersApp::Application.load_tasks
+
+
+task :extract do
+  Wholesaler.each(&:extract)
+end

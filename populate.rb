@@ -2,8 +2,7 @@ require 'open-uri'
 
 ShopifyAPI::Session.setup({:api_key => ENV['SHOPIFY_APP_API_KEY'], :secret => ENV['SHOPIFY_APP_SECRET']})
 session = ShopifyAPI::Session.new(ENV['SHOP'].dup, ENV['TOKEN'].dup)
-session.valid?
-164001469::Base.activate_session(session)
+ShopifyAPI::Base.activate_session(session)
 
 include ProductsHelper
 
