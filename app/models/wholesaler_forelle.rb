@@ -1,7 +1,30 @@
+# encoding: UTF-8
+
 require 'open-uri'
 require 'nokogiri'
 
 class WholesalerForelle < Wholesaler
+  COLOR_MAPPING = {
+    'Black'           => 'schwarz',
+    'Black/Black'     => 'schwarz',
+    'Black/White'     => '',
+    'Cardinal'        => 'rot',
+    'Forest'          => 'grün',
+    'Maroon'          => 'rot',
+    'Met. Gold'       => 'gold',
+    'Met. Silver'     => 'silber',
+    'Navy'            => 'navy-blau',
+    'Notre Dame Gold' => 'gold',
+    'Old Gold'        => 'gold',
+    'Orange'          => '',
+    'Pink'            => 'Lila',
+    'Purple'          => 'Lila',
+    'Royal'           => 'royal-blau',
+    'Scarlet'         => 'rot',
+    'Vegas Gold'      => 'gold',
+    'White'           => 'weiß',
+    'Yellow'          => 'gelb',
+  }
 
   def extract
     variants.each(&:mark_unavailable)

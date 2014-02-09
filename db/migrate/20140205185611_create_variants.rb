@@ -6,6 +6,8 @@ class CreateVariants < ActiveRecord::Migration
       t.string   :title
       t.string   :size
       t.string   :color
+      t.string   :other
+      t.string   :sku
       t.integer  :price
       t.integer  :quantity
       t.string   :image

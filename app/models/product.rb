@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
-  has_many   :variants
-  has_many   :features
+  has_many   :variants, :dependent => :destroy
+  has_many   :features, :dependent => :destroy
   has_many   :wholesalers
   belongs_to :fitting
 
@@ -14,26 +14,24 @@ class Product < ActiveRecord::Base
     self.type             = shopify_product.product_type
     self.vendor           = shopify_product.vendor
     self.handle           = shopify_product.handle
+    options = shopify_product.options.sort { |a,b| a.position <=> b.position }
+    self.option1          = options[0].try(&:name)
+    self.option2          = options[1].try(&:name)
+    self.option3          = options[2].try(&:name)
     self.meta_title       = ''
     self.meta_description = ''
 
-    debugger
-    exit
-
     self.tags = []
     shopify_product.tags.split(',').each do |tag_name|
-      condition = { name: tag_name }
+      condition = { name: tag_name.strip }
       self.tags << (Tag.where(condition).first || Tag.create!(condition))
     end
 
     self.features.destroy_all
     shopify_product.metafields.select { |n| n.namespace == 'features' }.each do |feature|
-      image, title, description = feature.value.split('|')
       self.features << Feature.new({
-        order:       feature.key.split('_').last,
-        title:       title,
-        description: description,
-        image:       image,
+        order: feature.key.split('_').last,
+        value: feature.value
       })
     end
 
@@ -50,7 +48,7 @@ class Product < ActiveRecord::Base
     shopify_product.variants.each do |shopify_variant|
       condition = { shopify_id: shopify_variant.id }
       self.variants << (Variant.where(condition).first || Variant.new(condition)).tap do |variant|
-        variant.import(shopify_variant)
+        variant.import(self, shopify_variant)
       end
     end
 

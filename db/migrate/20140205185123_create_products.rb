@@ -7,6 +7,9 @@ class CreateProducts < ActiveRecord::Migration
       t.string   :type
       t.string   :vendor
       t.string   :handle
+      t.string   :option1
+      t.string   :option2
+      t.string   :option3
       t.string   :meta_title
       t.string   :meta_description
       t.integer  :fitting_id
