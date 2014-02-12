@@ -3,52 +3,53 @@
 wholsalers_forelle = <<-DATA
 235634849 http://www.forelle.com/american-football/helmets/adult/riddell-360-helmets-m-l/10374/
 235634849 http://www.forelle.com/american-football/helmets/adult/riddell-360-helmets-xl/10383/
-179138937 http://www.forelle.com/american-football/shoes-us-size/moulded/adidas-filthy-speed-fly-low/16375/
-164002313 http://www.forelle.com/american-football/gloves/adult/nike-hyperbeast-20/15719/
 176259965 http://www.forelle.com/american-football/helmets/adult/rawlings-impulse-helmets-s-m-l/13853/
 176259965 http://www.forelle.com/american-football/helmets/adult/rawlings-impulse-helmets-xl/13893/
-179141233 http://www.forelle.com/american-football/shoes-us-size/moulded/under-armour-nitro-iii-low-mc/11948/
-186475501 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-power-spx10ibp/7939/
-186475501 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-power-spx30/7946/
-186475501 http://www.forelle.com/american-football/shoulderpads/double-hook-up/riddell-power-spx40/7951/
-186475501 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-power-spx50/7915/
 163964023 http://www.forelle.com/american-football/helmets/adult/riddell-revolution-helmets-m-l/7219/
 163964023 http://www.forelle.com/american-football/helmets/adult/riddell-revolution-helmets-xl/8634/
+179141233 http://www.forelle.com/american-football/shoes-us-size/moulded/under-armour-nitro-iii-low-mc/11948/
+179143693 http://www.forelle.com/american-football/shoes-us-size/moulded/nike-super-bad-shark/11925/
+179142745 http://www.forelle.com/american-football/shoes-us-size/moulded/under-armour-surge-ii-58-mc/11940/
+179138937 http://www.forelle.com/american-football/shoes-us-size/moulded/adidas-filthy-speed-fly-low/16375/
 164009703 http://www.forelle.com/american-football/gloves/adult/cutters-s60-the-shockskin-gamer/15866/
 164007995 http://www.forelle.com/american-football/gloves/adult/cutters-s90-shockskin-lineman/15883/
 164001567 http://www.forelle.com/american-football/gloves/adult/nike-super-bad-20/12813/
-179143693 http://www.forelle.com/american-football/shoes-us-size/moulded/nike-super-bad-shark/11925/
-179142745 http://www.forelle.com/american-football/shoes-us-size/moulded/under-armour-surge-ii-58-mc/11940/
 164001371 http://www.forelle.com/american-football/gloves/adult/nike-torque/15713/
 176330009 http://www.forelle.com/american-football/gloves/adult/nike-vapor-fly/16407/
 164001469 http://www.forelle.com/american-football/gloves/adult/nike-vapor-jet-20/12807/
 164013821 http://www.forelle.com/american-football/gloves/adult/cutters-x40-c-tack-revolution/11384/
 164011635 http://www.forelle.com/american-football/gloves/adult/cutters-x40-s-c-tack-solid/15852/
-186467237 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-spk-lbfb/15251/
-186467237 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-spk-oldl/15246/
-186467237 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-spk-qbwr/15236/
-186467237 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-spk-rbdb/15241/
-163970683 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-spk-lbfb/15251/
-163971035 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-spk-oldl/15246/
-163969649 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-spk-qbwr/15236/
-163970227 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-spk-rbdb/15241/
-176366809 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-power-spx10ibp/7939/
-176367113 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-power-spx30/7946/
-176367325 http://www.forelle.com/american-football/shoulderpads/double-hook-up/riddell-power-spx40/7951/
-176367533 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-power-spx50/7915/
-235653821 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-ev15/12870/
-235653821 http://www.forelle.com/american-football/shoulderpads/double-hook-up/riddell-ev48/12879/
-235653821 http://www.forelle.com/american-football/shoulderpads/double-hook-up/riddell-ev65/12885/
+164002313 http://www.forelle.com/american-football/gloves/adult/nike-hyperbeast-20/15719/
+186467237 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-spk-lbfb/15251/ LB FB
+186467237 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-spk-oldl/15246/ OL DL
+186467237 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-spk-qbwr/15236/ QB WR
+186467237 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-spk-rbdb/15241/ RB DB
+163970683 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-spk-lbfb/15251/ LB FB
+163971035 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-spk-oldl/15246/ OL DL
+163969649 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-spk-qbwr/15236/ QB WR
+163970227 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-spk-rbdb/15241/ RB DB
+176366809 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-power-spx10ibp/7939/ QB WR
+176367113 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-power-spx30/7946/ DR RB
+176367325 http://www.forelle.com/american-football/shoulderpads/double-hook-up/riddell-power-spx40/7951/ OL DL
+176367533 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-power-spx50/7915/ LB FB
+186475501 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-power-spx10ibp/7939/ QB WR
+186475501 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-power-spx30/7946/ DR RB
+186475501 http://www.forelle.com/american-football/shoulderpads/double-hook-up/riddell-power-spx40/7951/ OL DL
+186475501 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-power-spx50/7915/ LB FB
+235653821 http://www.forelle.com/american-football/shoulderpads/single-hook-up/riddell-ev15/12870/ QB WR DB
+235653821 http://www.forelle.com/american-football/shoulderpads/double-hook-up/riddell-ev48/12879/ RB TE
+235653821 http://www.forelle.com/american-football/shoulderpads/double-hook-up/riddell-ev65/12885/ OL DL
 DATA
 
 wholsalers_forelle.split("\n").each do |data|
-  shopify_product_id, url = data.split(' ')
+  product_id, url, *other = data.split(' ')
   next unless url
-  next if WholesalerForelle.where(shopify_product_id: shopify_product_id, url: url).first
+  next if WholesalerForelle.where(product_id: product_id, url: url).first
 
   WholesalerForelle.new.tap do |whoesaler|
-    whoesaler.shopify_product_id = shopify_product_id
+    whoesaler.product_id = product_id
     whoesaler.url = url
+    whoesaler.other = other.join(' ') if other.any?
     whoesaler.save!
   end
 end
@@ -84,7 +85,7 @@ pad_evolution;png;Flat Pad;Flaches Pad-Design für höhere Bewegungsfreiheit und
 
 
 Product.new({
-  :shopify_id => 163963715
+  :id => 163963715
 })
 
   def defaults_hash

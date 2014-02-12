@@ -3,8 +3,8 @@ class ShopifyDbService
 
   def initialize(shopify_product)
     @shopify_product = shopify_product
-    @product   = Product.where(shopify_id: shopify_product.id).first
-    @product ||= Product.new(shopify_id: shopify_product.id)
+    @product   = Product.where(id: shopify_product.id).first
+    @product ||= Product.new(id: shopify_product.id)
   end
 
   def fetch_product
@@ -65,23 +65,23 @@ class ShopifyDbService
   end
 
   def set_variant(variant, shopify_variant)
-    variant.shopify_id = shopify_variant.id
-    variant.title      = shopify_variant.title
-    variant.price      = (shopify_variant.price.to_f * 100).to_i
+    variant.id       = shopify_variant.id
+    variant.title    = shopify_variant.title
+    variant.price    = (shopify_variant.price.to_f * 100).to_i
     # self.image     =
-    variant.quantity   = shopify_variant.inventory_quantity.to_i
+    variant.quantity = shopify_variant.inventory_quantity.to_i
 
-    if option_value = shopify_variant.option1
+    if option_value  = shopify_variant.option1
       key = Variant.key_for(@product.option1)
       variant.set_option(key, option_value)
     end
 
-    if option_value = shopify_variant.option2
+    if option_value  = shopify_variant.option2
       key = Variant.key_for(@product.option2)
       variant.set_option(key, option_value)
     end
 
-    if option_value = shopify_variant.option3
+    if option_value  = shopify_variant.option3
       key = Variant.key_for(@product.option3)
       variant.set_option(key, option_value)
     end

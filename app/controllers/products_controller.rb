@@ -39,22 +39,4 @@ class ProductsController < ApplicationController
     end
   end
 
-  private
-  def render_value(value)
-    if value.is_a?(Array)
-      if value[1].present?
-        value.join('|')
-      end
-    elsif value.include?(';')
-      header, *body = value.split("\n")
-      header = header.split(";").join('</th><th>')
-      body   = body.map do |line|
-        line.split(";").join('</td><td>')
-      end.join('</td></tr><tr><td>')
-
-      "<table><thead><tr><th>#{header}</th></tr></thead><tr><td>#{body}</td></tr></table>"
-    elsif value.present?
-      value
-    end
-  end
 end

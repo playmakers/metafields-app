@@ -2,7 +2,7 @@ class DbShopifyService
   def initialize(product)
     @product         = product
     @shopify_product = begin
-      ShopifyAPI::Product.find(product.shopify_id)
+      ShopifyAPI::Product.find(product.id)
     rescue
       ShopifyAPI::Product.new.tap do |shopify_product|
         shopify_product.published = false
@@ -53,28 +53,28 @@ class DbShopifyService
     raise "new product" if new?
     #TODO check
     @product.variants.each do |variant|
-      if shopify_variant = @shopify_product.variants.select { |v| v.id == variant.shopify_id }.first
+      if shopify_variant = @shopify_product.variants.select { |v| v.id == variant.id }.first
         puts shopify_variant.title
         set_variant_details(shopify_variant, variant)
-        shopify_variant.save
       else
-        puts "could not find variant #{variant.shopify_id}"
+        puts "could not find variant #{variant.id}"
       end
     end
+    @shopify_product.save!
   end
 
   def update_features!(namespace = 'features')
     delete_metafields(namespace)
     @product.features.each do |feature|
-      add_metafield(namespace, "#{namespace}_#{namespace}_#{feature.order}", feature.value)
+      add_metafield(namespace, feature.order, feature.value)
     end
   end
 
   def update_fitting!(namespace = 'fitting')
     delete_metafields(namespace)
     if @product.fitting
-      add_metafield(namespace, "#{namespace}_0", @product.fitting.description1)
-      add_metafield(namespace, "#{namespace}_1", @product.fitting.description3)
+      add_metafield(namespace, 0, @product.fitting.description1)
+      add_metafield(namespace, 1, @product.fitting.description3)
     end
   end
 

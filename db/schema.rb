@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 20140205191305) do
   end
 
   create_table "products", force: true do |t|
-    t.integer  "shopify_id"
     t.string   "title"
     t.text     "description"
     t.string   "type"
@@ -61,7 +60,6 @@ ActiveRecord::Schema.define(version: 20140205191305) do
 
   create_table "variants", force: true do |t|
     t.integer  "product_id"
-    t.integer  "shopify_id"
     t.string   "title"
     t.string   "size"
     t.string   "color"
@@ -76,8 +74,10 @@ ActiveRecord::Schema.define(version: 20140205191305) do
 
   create_table "wholesaler_variants", force: true do |t|
     t.integer  "wholesaler_id"
+    t.integer  "variant_id"
     t.string   "size"
     t.string   "color"
+    t.string   "other"
     t.boolean  "available"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -85,8 +85,9 @@ ActiveRecord::Schema.define(version: 20140205191305) do
 
   create_table "wholesalers", force: true do |t|
     t.string   "type"
-    t.integer  "shopify_product_id"
+    t.integer  "product_id"
     t.string   "url"
+    t.string   "other"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

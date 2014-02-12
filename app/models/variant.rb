@@ -3,6 +3,8 @@
 class Variant < ActiveRecord::Base
   belongs_to :product
 
+  has_many :wholesaler_variants
+
   OPTION_MAPPING = {
     'size'   => 'size',
     'größe'  => 'size',
@@ -30,6 +32,22 @@ class Variant < ActiveRecord::Base
 
   def display_price
     "%.2f" % (price / 100.0)
+  end
+
+  def display_color
+    if color
+      color.split('-').map(&:titlecase).join('-')
+    end
+  end
+
+  def update_available
+    self.quantity = if wholesaler_variants.any?
+      10 * wholesaler_variants.select { |wv| wv.available }.size
+    else
+      3
+    end
+    self.save
+    self.quantity
   end
 
   def taxable

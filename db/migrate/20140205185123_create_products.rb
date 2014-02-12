@@ -1,7 +1,6 @@
 class CreateProducts < ActiveRecord::Migration
   def change
     create_table :products do |t|
-      t.integer  :shopify_id
       t.string   :title
       t.text     :description
       t.string   :type
