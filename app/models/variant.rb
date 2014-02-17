@@ -41,11 +41,13 @@ class Variant < ActiveRecord::Base
   end
 
   def update_available
-    self.quantity = if wholesaler_variants.any?
-      10 * wholesaler_variants.select { |wv| wv.available }.size
+    if self.wholesaler_variants.any?
+      self.quantity = self.wholesaler_variants.sum(&:quantity)
+      puts "Set new quantity #{self.quantity} for #{title}"
     else
-      3
+      puts "UNMAPPED: #{id} #{title}"
     end
+
     self.save
     self.quantity
   end

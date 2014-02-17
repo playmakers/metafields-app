@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140205191305) do
+ActiveRecord::Schema.define(version: 20140216153715) do
 
   create_table "features", force: true do |t|
     t.integer  "product_id"
@@ -72,13 +72,27 @@ ActiveRecord::Schema.define(version: 20140205191305) do
     t.datetime "updated_at"
   end
 
+  create_table "wholesaler_forelle_variants", force: true do |t|
+    t.integer  "wholesaler_variant_id"
+    t.integer  "quantity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "wholesaler_variant_quantities", force: true do |t|
+    t.integer  "wholesaler_variant_id"
+    t.integer  "quantity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "wholesaler_variants", force: true do |t|
     t.integer  "wholesaler_id"
     t.integer  "variant_id"
     t.string   "size"
     t.string   "color"
     t.string   "other"
-    t.boolean  "available"
+    t.integer  "quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

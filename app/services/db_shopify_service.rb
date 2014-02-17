@@ -1,4 +1,6 @@
 class DbShopifyService
+  attr_reader :shopify_product
+
   def initialize(product)
     @product         = product
     @shopify_product = begin
@@ -38,6 +40,7 @@ class DbShopifyService
     @shopify_product.handle       = @product.handle
     @shopify_product.tags         = @product.tags.map(&:name).join(",")
     @shopify_product.options      = @product.options.map { |name| ShopifyAPI::Option.new(name: name) }
+    @shopify_product
   end
 
   def set_variants
@@ -51,10 +54,8 @@ class DbShopifyService
 
   def update_variants!
     raise "new product" if new?
-    #TODO check
     @product.variants.each do |variant|
       if shopify_variant = @shopify_product.variants.select { |v| v.id == variant.id }.first
-        puts shopify_variant.title
         set_variant_details(shopify_variant, variant)
       else
         puts "could not find variant #{variant.id}"
@@ -80,6 +81,7 @@ class DbShopifyService
 
   private
   def set_variant_details(shopify_variant, variant)
+    puts "  #{shopify_variant.title} -> #{variant.quantity}"
     # shopify_variant.title                = "Variant #{variant.title}"
     shopify_variant.sku                  = variant.sku
     shopify_variant.price                = variant.display_price
