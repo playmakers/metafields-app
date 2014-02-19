@@ -3,7 +3,7 @@ class CreateWholesalerVariantQuantities < ActiveRecord::Migration
     create_table :wholesaler_variant_quantities do |t|
       t.integer :wholesaler_variant_id
       t.integer :quantity
-      t.timestamps
+      t.datetime :created_at
     end
   end
 end
