@@ -1,0 +1,59 @@
+:javascript
+  window.mainPageTitle = 'Produkt Metafields';
+
+  ShopifyApp.ready(function(){
+    ShopifyApp.Bar.initialize({
+      title: window.mainPageTitle,
+      icon: 'https://embedded-app-example.herokuapp.com/icon.png',
+      buttons: {
+        primary: {
+          label: "Speichern",
+          message: 'save-product-metafields'
+        },
+       secondary: {
+          label: "Zurück",
+          href: "/products/#{params[:id]}",
+          target: 'shopify'
+        }
+      }
+    });
+  });
+
+- product = @product
+.row.metafields
+  .span10.offset1
+    %form{action:'/products', method: 'put'}
+      %input{:name => 'id', :value => product.id, :type => 'hidden'}
+      .thumbnail
+        %h3= product.vendor + ' ' + product.title + ' - ' + product.id.to_s
+
+      %hr
+
+      #accordion.accordion
+        .accordion-group.features
+          .accordion-heading
+            %a.accordion-toggle{:'data-toggle' => "collapse", :'data-parent' => "#accordion", :href => "#features"}
+              Features
+
+          #features.accordion-body.collapse.in
+            .accordion-inner
+
+              %ul.features.unstyled
+
+        .accordion-group.fitting
+          .accordion-heading
+            %a.accordion-toggle{:'data-toggle' => "collapse", :'data-parent' => "#accordion", :href => "#fitting"}
+              Fitting
+
+          #fitting.accordion-body.collapse
+            .accordion-inner
+              %ul.accessories.unstyled
+                %li
+                  %textarea{:name => "description1"}~ product.fitting.description1
+                %li
+                  %textarea{:name => "description2"}~ product.fitting.description3
+
+      %hr
+
+      %button{type: 'submit'}
+        Speichern

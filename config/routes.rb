@@ -3,18 +3,17 @@ PlaymakersApp::Application.routes.draw do
     get    'login'                 => :new
     post   'login'                 => :new
     get    'auth/shopify/callback' => :show
-    # post   'login'                 => :create
-    # delete 'logout'                => :destroy
+    delete 'logout'                => :destroy
   end
 
   get  'products/:id/variants/:variant_id/image.:format' => 'images#variant'
 
+  get  'products'      => 'products#edit'
 
   # get 'welcome' => 'home#welcome'
   # get 'design'  => 'home#design'
 
   # get  'images'               => 'images#show'
-  # get  'products'             => 'products#show'
   # get  'products/metafields'  => 'products#metafields'
   # post 'products/metafields'  => 'products#metafields'
 

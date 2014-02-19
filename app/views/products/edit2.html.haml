@@ -1,7 +1,7 @@
 - product = @product
 .row.metafields
   .span10.offset1
-    %form{action:'/products/metafields' , method: 'post'}
+    %form{action:'/products' , method: 'put'}
       %input{:name => 'id', :value => product.id, :type => 'hidden'}
       .thumbnail
         %h3= product.vendor + ' ' + product.title + ' - ' + product.id.to_s
