@@ -17,7 +17,9 @@ ShopifyAPI::Session.setup({:api_key => ENV['SHOPIFY_APP_API_KEY'], :secret => EN
 session = ShopifyAPI::Session.new(ENV['SHOP'].dup, ENV['TOKEN'].dup)
 ShopifyAPI::Base.activate_session(session)
 
-Product.all.each do |product|
+shop_id = ENV['SHOP'].split('.').first
+
+Product.where(:shop_id => shop_id).all.each do |product|
   puts "#{product.title}"
   service = DbShopifyService.new(product)
   service.update_variants!

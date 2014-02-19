@@ -12,6 +12,7 @@ class CreateProducts < ActiveRecord::Migration
       t.string   :meta_title
       t.string   :meta_description
       t.integer  :fitting_id
+      t.string   :shop_id
 
       t.timestamps
     end
