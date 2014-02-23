@@ -42,14 +42,22 @@ class Variant < ActiveRecord::Base
 
   def update_available
     if self.wholesaler_variants.any?
-      self.quantity = self.wholesaler_variants.sum(&:quantity)
-      puts "Set new quantity #{self.quantity} for #{title}"
+      self.quantity = self.wholesaler_variants.sum(&:quantity) + extra
+      Stream.write "Set new quantity #{self.quantity} for #{title}"
     else
-      puts "UNMAPPED: #{id} #{title}"
+      Stream.write "UNMAPPED: #{id} #{title}"
     end
 
     self.save
     self.quantity
+  end
+
+  def extra
+    if product.type == 'Pads'
+      1
+    else
+      0
+    end
   end
 
   def taxable

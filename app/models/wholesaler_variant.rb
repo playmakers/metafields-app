@@ -22,7 +22,7 @@ class WholesalerVariant < ActiveRecord::Base
 
   def set_variant_id
     if possible_variants.size == 1
-      puts self.variant_id
+      Stream.write self.variant_id
       self.variant_id = possible_variants.first.id
       save!
     end

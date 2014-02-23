@@ -8,6 +8,8 @@ PlaymakersApp::Application.routes.draw do
 
   get  'products/:id/variants/:variant_id/image.:format' => 'images#variant'
 
+  get  'import'      => 'home#import'
+
   get  'products'      => 'products#edit'
 
   # get 'welcome' => 'home#welcome'

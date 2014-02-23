@@ -13,6 +13,19 @@ require 'less-rails-bootstrap'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
+class Stream
+  def self.client=(client)
+    @@client = client
+  end
+
+  def self.write(data)
+    if @@client
+      @@client.write(data)
+      @@client.write("<br>")
+    end
+  end
+end
+
 module PlaymakersApp
   class Application < Rails::Application
 

@@ -26,11 +26,11 @@ end
 
 defaults_hash.each do |ids, namespaces|
   Array(ids).each do |id|
-    puts id
+    Stream.write id
     product = ShopifyAPI::Product.find(id, :params => { :fields => [:id, :title, :vendor].join(',') })
     product.metafields.each(&:destroy)
     namespaces.each do |namespace, values|
-      puts namespace
+      Stream.write namespace
       values.each_with_index do |value, index|
         value = render_value(value)
         product.add_metafield(ShopifyAPI::Metafield.new({
@@ -45,11 +45,9 @@ defaults_hash.each do |ids, namespaces|
   end
 end
 
-
-def check
-  doc = Nokogiri::HTML(
-end
-
+# def check
+#   doc = Nokogiri::HTML(
+# end
 
 def available?(url, x_unit, y_unit)
   open("#{url}?x_unit=#{x_unit}&y_unit=#{y_unit}").read

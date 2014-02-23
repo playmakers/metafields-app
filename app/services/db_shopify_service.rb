@@ -58,7 +58,7 @@ class DbShopifyService
       if shopify_variant = @shopify_product.variants.select { |v| v.id == variant.id }.first
         set_variant_details(shopify_variant, variant)
       else
-        puts "could not find variant #{variant.id}"
+        Stream.write "could not find variant #{variant.id}"
       end
     end
     @shopify_product.save!
@@ -81,7 +81,7 @@ class DbShopifyService
 
   private
   def set_variant_details(shopify_variant, variant)
-    puts "  #{shopify_variant.title} -> #{variant.quantity}"
+    Stream.write "  #{shopify_variant.title} -> #{variant.quantity}"
     # shopify_variant.title                = "Variant #{variant.title}"
     shopify_variant.sku                  = variant.sku
     shopify_variant.price                = variant.display_price

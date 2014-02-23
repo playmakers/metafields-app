@@ -76,19 +76,19 @@ class WholesalerForelle < Wholesaler
     quantity = CGI.parse(URI.parse(response["Location"]).query)["max"].first.to_i
     quantity = 0 if quantity < 0
 
-    puts "#{wholesaler_variant.wholesaler.url} #{wholesaler_variant.size} #{wholesaler_variant.color} -> #{quantity}"
+    Stream.write "#{wholesaler_variant.wholesaler.url} #{wholesaler_variant.size} #{wholesaler_variant.color} -> #{quantity}"
     WholesalerVariantQuantity.create!({
       :wholesaler_variant_id => wholesaler_variant.id,
       :quantity              => quantity
     })
   rescue => e
-    puts e
+    Stream.write e
     nil
   end
 
   def extract
     variants.each(&:mark_unavailable)
-    puts url
+    Stream.write url
 
     doc    = Nokogiri::HTML(open(url))
     sizes  = doc.css('#size option')
@@ -100,7 +100,7 @@ class WholesalerForelle < Wholesaler
         available = !node.content.include?("OUT")
 
         if colors.size > 0
-          puts " -> #{size}: #{url}"
+          Stream.write " -> #{size}: #{url}"
           doc = Nokogiri::HTML(open(url + "/?x_unit=#{size}"))
           process_colors(size, doc)
         else
