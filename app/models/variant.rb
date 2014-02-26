@@ -41,12 +41,8 @@ class Variant < ActiveRecord::Base
   end
 
   def update_available
-    if self.wholesaler_variants.any?
-      self.quantity = self.wholesaler_variants.sum(&:quantity) + extra
-      Stream.write "Set new quantity #{self.quantity} for #{title}"
-    else
-      Stream.write "UNMAPPED: #{id} #{title}"
-    end
+    self.quantity = self.wholesaler_variants.sum(&:quantity) + extra
+    Stream.write "Set new quantity #{self.quantity} for #{title}"
 
     self.save
     self.quantity
