@@ -21,4 +21,10 @@ class ApplicationController < ActionController::Base
   def allow_iframe
     response.headers.except! 'X-Frame-Options'
   end
+
+  def shop_id
+    if shop = params[:shop]
+      shop.split('.').first
+    end
+  end
 end

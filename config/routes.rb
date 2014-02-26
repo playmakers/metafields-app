@@ -8,7 +8,7 @@ PlaymakersApp::Application.routes.draw do
 
   get  'products/:id/variants/:variant_id/image.:format' => 'images#variant'
 
-  get  'import'      => 'home#import'
+  get  'import'   => 'products#update_variant_quantities'
 
   get  'products'      => 'products#edit'
 

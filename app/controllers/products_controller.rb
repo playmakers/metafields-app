@@ -10,7 +10,6 @@ class ProductsController < ApplicationController
   # end
 
   def edit
-    shop_id = params[:shop].split('.').first
     @product = Product.where(id: params[:id], shop_id: shop_id).first || Product.first
     # metafields = @product.metafields
 
@@ -37,5 +36,26 @@ class ProductsController < ApplicationController
     #   hash[metafield.namespace] << metafield
     #   hash
     # end
+  end
+
+  def update_variant_quantities
+    Stream.client = response.stream
+
+    new_quantities = WholesalerVariant.all.map do |variant|
+      WholesalerForelle.get_variant_quantity(variant)
+    end.compact
+
+    new_quantities.map(&:update_variant_quantity)
+
+    Stream.write Variant.all.sum &:update_available
+
+    Product.where(:shop_id => shop_id).all.each do |product|
+      Stream.write product.title
+      DbShopifyService.new(product).update_variants!
+    end
+  rescue => e
+    Stream.write e.message
+  ensure
+    response.stream.close
   end
 end
