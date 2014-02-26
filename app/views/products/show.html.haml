@@ -1,0 +1,35 @@
+- product = @product
+:javascript
+  $(function () {
+    $('#variant').highcharts({
+        chart: {
+            type: 'area'
+        },
+        title: {
+            text: 'Variant Quantities'
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        plotOptions: {
+          area: {
+              stacking: 'normal',
+              lineColor: '#666666',
+              lineWidth: 1,
+              marker: {
+                  lineWidth: 1,
+                  lineColor: '#666666'
+              }
+          }
+        },
+        series: #{product_variants_quantities(@product).to_json}
+    });
+  });
+
+.row
+  .span10.offset1
+    %h3= product.vendor + ' ' + product.title + ' - ' + product.id.to_s
+
+    %hr
+
+    #variant{style:"min-width: 310px; height: 400px; margin: 0 auto"}

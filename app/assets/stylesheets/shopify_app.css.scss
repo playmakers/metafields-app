@@ -24,7 +24,7 @@ $col-light-grey: #c3c2c3;
 
 /* BOOTSTRAP OVERRIDES
 ============================================================= */
-html, body { background-color: #eee; }
+html, body { background-color: #fff; }
 body { padding-top: 40px;}
 
 footer { margin-top: 7px; padding-top: 7px; color:#aaa;}
@@ -101,7 +101,7 @@ a.thumbnail:hover {
 /* APP CSS
 ============================================================= */
 /* General */
-h1,h2,h3,h4,h5,h6,.brand { 
+h1,h2,h3,h4,h5,h6,.brand {
   font-family: $open-sans;
   font-weight:normal;
   small { letter-spacing:0px;}
@@ -135,7 +135,7 @@ h1,h2 { letter-spacing:-1px;}
 .jumbotron { background: #222; margin:-20px -20px 20px -20px; position: relative;}
 .jumbotron h1 { font-size: 54px; line-height: 1; text-shadow: 0 1px 2px rgba(0, 0, 0, .5);}
 .jumbotron h1, .jumbotron p { margin-right:0; margin-bottom: 9px; color: #fff; text-align: center; text-shadow: 0 1px 1px rgba(0, 0, 0, .3);}
-.jumbotron .inner { background: transparent url('/assets/grid-18px.png') top center; padding: 45px 0; 
+.jumbotron .inner { background: transparent url('/assets/grid-18px.png') top center; padding: 45px 0;
   -webkit-box-shadow: inset 0 -20px 300px rgba(0,0,0,.4); -moz-box-shadow: inset 0 -20px 300px rgba(0,0,0,.4);}
 
 @media (max-width: 480px) {

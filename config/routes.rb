@@ -10,7 +10,8 @@ PlaymakersApp::Application.routes.draw do
 
   get  'import'   => 'products#update_variant_quantities'
 
-  get  'products'      => 'products#edit'
+  get  'products/:id' => 'products#show'
+  get  'products/:id' => 'products#edit'
 
   # get 'welcome' => 'home#welcome'
   # get 'design'  => 'home#design'

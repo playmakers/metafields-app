@@ -5,11 +5,13 @@
 
   <script src="//cdn.shopify.com/s/assets/external/app.js?<%= Time.now.strftime('%Y%m%d%H') %>"></script>
   <script type="text/javascript">
-    ShopifyApp.init({
-      apiKey: "<%= ShopifyApp.configuration.api_key %>",
-      shopOrigin: "<%= "https://#{ session[:shopify].url }" if session[:shopify] %>",
-      debug: true
-    });
+    <% if development? %>
+      ShopifyApp.init({
+        apiKey: "<%= ShopifyApp.configuration.api_key %>",
+        shopOrigin: "<%= 'https://' + session[:shopify].url if session[:shopify] %>",
+        debug: true
+      });
+    <% end %>
   </script>
 
   <%= stylesheet_link_tag 'application' %>
@@ -18,7 +20,7 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="container-fluid">
     <% flash.each do |type, message| %>
       <div class="alert"><%= message %></div>
     <% end %>
@@ -26,10 +28,6 @@
     <div class="content">
       <%= yield %>
     </div>
-
-    <footer>
-      <p>Playmakers MetaFields</p>
-    </footer>
 
   </div> <!-- /container -->
 </body>

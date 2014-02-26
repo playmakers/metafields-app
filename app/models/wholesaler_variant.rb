@@ -2,6 +2,7 @@ class WholesalerVariant < ActiveRecord::Base
   belongs_to :wholesaler
 
   has_one :product, :through => :wholesaler
+  has_many :wholesaler_variant_quantities
 
   def mark_unavailable
     self.quantity = 0

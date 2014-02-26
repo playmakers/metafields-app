@@ -4,10 +4,9 @@ class ProductsController < ApplicationController
   before_action :local_login
   around_filter :shopify_session
 
-  # def show
-  #   shop_id = params[:shop].split('.').first
-  #   @product = Product.where(id: params[:id], shop_id: shop_id)
-  # end
+  def show
+    @product = Product.where(id: params[:id], shop_id: shop_id).first
+  end
 
   def edit
     @product = Product.where(id: params[:id], shop_id: shop_id).first || Product.first
