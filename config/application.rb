@@ -14,14 +14,18 @@ require 'less-rails-bootstrap'
 Bundler.require(:default, Rails.env)
 
 class Stream
-  def self.client=(client)
-    @@client = client
-  end
+  class << self
+    def client=(client)
+      @client = client
+    end
 
-  def self.write(data)
-    if @@client
-      @@client.write(data)
-      @@client.write("<br>")
+    def write(data)
+      if @client
+        @client.write(data)
+        @client.write("<br>")
+      else
+        puts data
+      end
     end
   end
 end

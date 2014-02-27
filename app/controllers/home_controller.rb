@@ -1,5 +1,4 @@
 class HomeController < ApplicationController
-  include ActionController::Live
 
   around_filter :shopify_session, :except => :welcome
 

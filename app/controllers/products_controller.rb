@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  include ActionController::Live
+
   layout 'esdk'
 
   before_action :local_login
@@ -54,6 +56,7 @@ class ProductsController < ApplicationController
     end
   rescue => e
     Stream.write e.message
+    Stream.write e.stacktrace
   ensure
     response.stream.close
   end

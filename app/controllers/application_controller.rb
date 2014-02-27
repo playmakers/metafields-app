@@ -13,8 +13,9 @@ class ApplicationController < ActionController::Base
 
   private
   def local_login
-    if ENV['SHOP'] && ENV['TOKEN']
-      session[:shopify] ||= ShopifyAPI::Session.new(ENV['SHOP'].dup, ENV['TOKEN'])
+    params[:shop] ||= ENV['SHOP']
+    if ENV['TOKEN']
+      session[:shopify] ||= ShopifyAPI::Session.new(params[:shop].dup, ENV['TOKEN'].dup)
     end
   end
 
