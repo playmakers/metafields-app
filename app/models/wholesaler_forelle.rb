@@ -58,87 +58,100 @@ class WholesalerForelle < Wholesaler
     '11 3/4' => '11 3/4',
   }
 
-  def self.map_color(color)
-    COLOR_MAPPING[color]
-  end
+  class << self
+    def map_color(color)
+      COLOR_MAPPING[color]
+    end
 
-  def self.map_size(size)
-    SIZE_MAPPING[size]
-  end
+    def map_size(size)
+      SIZE_MAPPING[size]
+    end
 
-  def self.get_variant_quantity(wholesaler_variant)
-    response = Net::HTTP.post_form(URI.parse(wholesaler_variant.wholesaler.url), {
-      'page'     => 'add-to-cart',
-      'quantity' => 1000,
-      'size'     => wholesaler_variant.size,
-      'color'    => wholesaler_variant.color,
-    })
-    quantity = CGI.parse(URI.parse(response["Location"]).query)["max"].first.to_i
-    quantity = 0 if quantity < 0
+    def get_variant_quantity(wholesaler_variant)
+      url = wholesaler_variant.wholesaler.url
+      response = Net::HTTP.post_form(URI.parse(url), {
+        'form_page'  => 'add_product',
+        'amount'     => 1000,
+        'product_id' => get_product_id(url),
+        'sizes'      => wholesaler_variant.size_id,
+        'colors'     => wholesaler_variant.color_id,
+      })
 
-    Stream.write "#{wholesaler_variant.wholesaler.url} #{wholesaler_variant.size} #{wholesaler_variant.color} -> #{quantity}"
-    WholesalerVariantQuantity.create!({
-      :wholesaler_variant_id => wholesaler_variant.id,
-      :quantity              => quantity
-    })
-  rescue => e
-    Stream.write e
-    nil
+      quantity = if match = response.body.match(/maximum of (\d+) pieces/)
+        match[1].to_i
+      else
+        raise "no quantity found for #{wholesaler_variant.id}"
+      end
+
+      Stream.write "#{wholesaler_variant.wholesaler.url} #{wholesaler_variant.size} #{wholesaler_variant.color} -> #{quantity}"
+      WholesalerVariantQuantity.create!({
+        :wholesaler_variant_id => wholesaler_variant.id,
+        :quantity              => quantity
+      })
+    rescue => e
+      Stream.write e
+      nil
+    end
+
+    def get_product_id(url)
+      url.split('/').last
+    end
   end
 
   def extract
-    variants.each(&:mark_unavailable)
+    # variants.each(&:mark_unavailable)
     Stream.write url
 
     doc    = Nokogiri::HTML(open(url))
-    sizes  = doc.css('#size option')
-    colors = doc.css('#color option')
+    sizes  = doc.css('.sizes .item')
+    colors = doc.css('.colors .item')
 
     if sizes.size > 0
-      sizes.each do |node|
-        size      = node[:value]
-        available = !node.content.include?("OUT")
+      sizes.each do |size_node|
+        size = size_of(size_node)
+
+        colors = doc.css(".colors .option_item_#{size.last}")
 
         if colors.size > 0
-          Stream.write " -> #{size}: #{url}"
-          doc = Nokogiri::HTML(open(url + "/?x_unit=#{size}"))
-          process_colors(size, doc)
+          Stream.write " -> #{size.first}: #{url}"
+          colors.each do |color_node|
+            color = color_of(color_node)
+            update_variant(size, color)
+          end
         else
-          update_variant(size, nil, available)
+          update_variant(size, nil)
         end
       end
     elsif colors.size > 0
-      colors.each do |node|
-        color      = node[:value]
-        available = !node.content.include?("OUT")
+      colors.each do |color_node|
+        color = color_of(color_node)
 
-        update_variant(nil, color, available)
+        update_variant(nil, color)
       end
     else
-      update_variant(nil, nil, true)
+      update_variant(nil, nil)
     end
   end
 
   private
-  def process_colors(size, doc)
-    doc.css('#color option').each do |node|
-      color     = node[:value]
-      available = !node.content.include?("OUT")
-      update_variant(size, color, available)
-    end
-  end
-
-  def update_variant(size, color, available)
+  def update_variant(size, color, available = false)
     pos.each do |other|
       variant = get_variant_for(size, color, other)
-      variant.quantity = 1 if available
+      variant.quantity   = 1 if available
       variant.product_id = self.product_id
       variant.save!
     end
   end
 
   def get_variant_for(size, color, other)
-    variants.where(size: size, color: color, other: other).first || variants.build(size: size, color: color, other: other)
+    args = {
+      size:     Array(size).first,
+      color:    Array(color).first,
+      other:    other,
+      size_id:  Array(size).last,
+      color_id: Array(color).last,
+    }
+    variants.where(args).first || variants.build(args)
   end
 
   def pos
@@ -147,5 +160,19 @@ class WholesalerForelle < Wholesaler
     else
       [nil]
     end
+  end
+
+  def size_of(node)
+    [
+      node.css(".size").first.content,
+      node.css("input").first.attributes["value"].value
+    ]
+  end
+
+   def color_of(node)
+    [
+      node.attributes["title"].value,
+      node.css("input").first.attributes["value"].value
+    ]
   end
 end

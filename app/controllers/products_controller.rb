@@ -42,18 +42,20 @@ class ProductsController < ApplicationController
   def update_variant_quantities
     Stream.client = response.stream
 
-    new_quantities = WholesalerVariant.all.map do |variant|
-      WholesalerForelle.get_variant_quantity(variant)
+    new_quantities = WholesalerVariant.where("wholesaler_id > 60").all.map do |variant|
+      if variant.wholesaler.is_a?(WholesalerForelle)
+        WholesalerForelle.get_variant_quantity(variant)
+      end
     end.compact
 
     new_quantities.map(&:update_variant_quantity)
 
-    Stream.write Variant.all.sum &:update_available
+    # Stream.write Variant.all.sum(&:update_available)
 
-    Product.where(:shop_id => shop_id).all.each do |product|
-      Stream.write product.title
-      DbShopifyService.new(product).update_variants!
-    end
+    # Product.where(:shop_id => shop_id).all.each do |product|
+    #   Stream.write product.title
+    #   DbShopifyService.new(product).update_variants!
+    # end
   rescue => e
     Stream.write e.message
     Stream.write e.stacktrace

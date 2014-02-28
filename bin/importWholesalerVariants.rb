@@ -1,0 +1,7 @@
+#!/usr/bin/env rails runner
+
+WholesalerForelle.where("id > 60").all.each &:extract
+
+Stream.write "----- Mapping ----------------------------"
+
+Stream.write WholesalerVariant.where(:variant_id => nil).all.map(&:set_variant_id).compact.size
