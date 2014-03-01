@@ -11,14 +11,16 @@ PlaymakersApp::Application.routes.draw do
   get  'import'   => 'products#update_variant_quantities'
 
   get  'products/:id' => 'products#show'
-  get  'products/:id' => 'products#edit'
+  get  'products/edit' => 'products#edit'
 
   # get 'welcome' => 'home#welcome'
   # get 'design'  => 'home#design'
-
   # get  'images'               => 'images#show'
   # get  'products/metafields'  => 'products#metafields'
   # post 'products/metafields'  => 'products#metafields'
+
+
+  get  'products/show' => redirect("/products/%{id}")
 
   root :to => 'home#index'
 end

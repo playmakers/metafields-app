@@ -9,10 +9,10 @@ wholsalers_forelle = <<-DATA
 163964023 http://www.forelle.com/american-football/helmets/adult/riddell-revolution-helmets-xl/7068/
 164013821 http://www.forelle.com/american-football/gloves/adult/cutters-x40-c-tack-revolution/6153/
 164011635 http://www.forelle.com/american-football/gloves/adult/cutters-x40-s-c-tack-solid/6255/
+179141233 http://www.forelle.com/american-football/shoes-us-size/moulded/under-armour-nitro-iii-low-mc/3996/
 DATA
 
 dummy = <<-DATA
-179141233 http://www.forelle.com/american-football/shoes-us-size/moulded/under-armour-nitro-iii-low-mc/11948/
 179143693 http://www.forelle.com/american-football/shoes-us-size/moulded/nike-super-bad-shark/11925/
 179142745 http://www.forelle.com/american-football/shoes-us-size/moulded/under-armour-surge-ii-58-mc/11940/
 179138937 http://www.forelle.com/american-football/shoes-us-size/moulded/adidas-filthy-speed-fly-low/16375/
