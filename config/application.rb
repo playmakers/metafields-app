@@ -20,11 +20,10 @@ class Stream
     end
 
     def write(data)
+      puts data
       if @client
         @client.write(data)
         @client.write("<br>")
-      else
-        puts data
       end
     end
   end

@@ -13,14 +13,17 @@ class ApplicationController < ActionController::Base
 
   private
   def local_login
-    params[:shop] ||= ENV['SHOP']
-    if ENV['TOKEN']
-      session[:shopify] ||= ShopifyAPI::Session.new(params[:shop].dup, ENV['TOKEN'].dup)
+    params[:shop]  ||= ENV['SHOP']
+    params[:token] ||= ENV['TOKEN']
+    if params[:shop] && params[:token]
+      session[:shopify] ||= ShopifyAPI::Session.new(params[:shop].dup, params[:token].dup)
     end
   end
 
   def allow_iframe
-    response.headers.except! 'X-Frame-Options'
+    unless response.headers.frozen?
+      response.headers.except! 'X-Frame-Options'
+    end
   end
 
   def shop_id

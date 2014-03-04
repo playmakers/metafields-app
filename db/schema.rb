@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140216153715) do
+ActiveRecord::Schema.define(version: 20140304111205) do
 
   create_table "features", force: true do |t|
     t.integer  "product_id"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20140216153715) do
     t.integer  "fitting_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "shop_id"
   end
 
   create_table "products_tags", force: true do |t|
@@ -55,7 +56,6 @@ ActiveRecord::Schema.define(version: 20140216153715) do
   create_table "tags", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "variants", force: true do |t|
@@ -72,22 +72,15 @@ ActiveRecord::Schema.define(version: 20140216153715) do
     t.datetime "updated_at"
   end
 
-  create_table "wholesaler_forelle_variants", force: true do |t|
-    t.integer  "wholesaler_variant_id"
-    t.integer  "quantity"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "wholesaler_variant_quantities", force: true do |t|
     t.integer  "wholesaler_variant_id"
     t.integer  "quantity"
     t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "wholesaler_variants", force: true do |t|
     t.integer  "wholesaler_id"
+    t.integer  "product_id"
     t.integer  "variant_id"
     t.string   "size"
     t.string   "color"
@@ -95,6 +88,8 @@ ActiveRecord::Schema.define(version: 20140216153715) do
     t.integer  "quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "size_id"
+    t.integer  "color_id"
   end
 
   create_table "wholesalers", force: true do |t|

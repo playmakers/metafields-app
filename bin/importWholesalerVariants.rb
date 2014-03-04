@@ -1,6 +1,6 @@
 #!/usr/bin/env rails runner
 
-WholesalerForelle.where("id > 60").all.each &:extract
+WholesalerForelle.all.each &:extract
 
 Stream.write "----- Mapping ----------------------------"
 

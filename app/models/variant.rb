@@ -41,19 +41,11 @@ class Variant < ActiveRecord::Base
   end
 
   def update_available
-    self.quantity = self.wholesaler_variants.sum(&:quantity) + extra
+    self.quantity = self.wholesaler_variants.sum(&:quantity)
     Stream.write "Set new quantity #{self.quantity} for #{title}"
 
     self.save
     self.quantity
-  end
-
-  def extra
-    if product.type == 'Pads'
-      1
-    else
-      0
-    end
   end
 
   def taxable

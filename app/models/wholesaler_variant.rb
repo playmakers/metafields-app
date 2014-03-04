@@ -28,4 +28,8 @@ class WholesalerVariant < ActiveRecord::Base
       save!
     end
   end
+
+  def to_s
+    [size, color, other].join(" ")
+  end
 end
