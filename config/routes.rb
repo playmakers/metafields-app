@@ -6,6 +6,10 @@ PlaymakersApp::Application.routes.draw do
     delete 'logout'                => :destroy
   end
 
+  get 'products/show' => redirect { |params, req|
+    "/products/#{req.query_parameters['id']}"
+  }
+
   get  'products/:id/variants/:variant_id/image.:format' => 'images#variant'
 
   get  'import'   => 'products#update_variant_quantities'
@@ -20,7 +24,6 @@ PlaymakersApp::Application.routes.draw do
   # post 'products/metafields'  => 'products#metafields'
 
 
-  get  'products/show' => redirect("/products/%{id}")
 
   root :to => 'home#index'
 end

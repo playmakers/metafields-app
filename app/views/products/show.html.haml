@@ -1,3 +1,20 @@
+:javascript
+  window.mainPageTitle = 'Produkt Metafields';
+
+  ShopifyApp.ready(function(){
+    ShopifyApp.Bar.initialize({
+      title: window.mainPageTitle,
+      icon: 'https://embedded-app-example.herokuapp.com/icon.png',
+      buttons: {
+       secondary: {
+          label: "Zurück",
+          href: "/products/#{params[:id]}",
+          target: 'shopify'
+        }
+      }
+    });
+  });
+
 - product = @product
 :javascript
   $(function () {
