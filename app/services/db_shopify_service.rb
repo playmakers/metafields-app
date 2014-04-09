@@ -53,7 +53,7 @@ class DbShopifyService
   end
 
   def update_variants!
-    raise "new product" if new?
+    raise "new product  #{@product.inspect}" if new?
     @product.variants.each do |variant|
       if shopify_variant = @shopify_product.variants.select { |v| v.id == variant.id }.first
         set_variant_details(shopify_variant, variant)

@@ -9,6 +9,7 @@ class Variant < ActiveRecord::Base
     'size'   => 'size',
     'größe'  => 'size',
     'grösse' => 'size',
+    'größe (us/eur)' => 'size',
     'color'  => 'color',
     'farbe'  => 'color',
   }
