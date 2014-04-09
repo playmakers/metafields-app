@@ -1,9 +1,8 @@
 class Wholesaler < ActiveRecord::Base
   # belongs_to :product
-  has_many :variants, :class_name => 'WholesalerVariant'
+  has_many :variants, :class_name => 'WholesalerVariant', :dependent => :destroy
 
   belongs_to :product
-
 
   def multiple_mapped
     sql = <<-SQL

@@ -81,10 +81,10 @@ class DbShopifyService
 
   private
   def set_variant_details(shopify_variant, variant)
-    Stream.write "  #{shopify_variant.title} -> #{variant.quantity}"
+    Stream.write "  #{variant.title} -> #{variant.quantity}"
     # shopify_variant.title                = "Variant #{variant.title}"
     shopify_variant.sku                  = variant.sku
-    shopify_variant.price                = variant.display_price
+    # shopify_variant.price                = variant.display_price
     shopify_variant.inventory_quantity   = variant.quantity
     shopify_variant.taxable              = variant.taxable
     shopify_variant.requires_shipping    = variant.requires_shipping
