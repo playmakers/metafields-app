@@ -39,6 +39,7 @@ gem 'nokogiri'
 gem 'unicorn'
 
 gem 'rails_12factor', group: :production
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem "less-rails-bootstrap"
