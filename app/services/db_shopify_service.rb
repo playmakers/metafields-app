@@ -83,15 +83,20 @@ class DbShopifyService
   def set_variant_details(shopify_variant, variant)
     Stream.write "  #{variant.title} -> #{variant.quantity}"
     # shopify_variant.title                = "Variant #{variant.title}"
-    shopify_variant.sku                  = variant.sku
+    # shopify_variant.sku                  = variant.sku
     # shopify_variant.price                = variant.display_price
-    shopify_variant.inventory_quantity   = variant.quantity
-    shopify_variant.taxable              = variant.taxable
-    shopify_variant.requires_shipping    = variant.requires_shipping
-    shopify_variant.inventory_management = variant.inventory_management
-    shopify_variant.option1              = variant.option(1) if @product.option(1)
-    shopify_variant.option2              = variant.option(2) if @product.option(2)
-    shopify_variant.option3              = variant.option(3) if @product.option(3)
+    # shopify_variant.inventory_quantity   = variant.quantity
+    # shopify_variant.taxable              = variant.taxable
+    # shopify_variant.requires_shipping    = variant.requires_shipping
+    # shopify_variant.inventory_management = variant.inventory_management
+    # shopify_variant.option1              = variant.option(1) if @product.option(1)
+    # shopify_variant.option2              = variant.option(2) if @product.option(2)
+    # shopify_variant.option3              = variant.option(3) if @product.option(3)
+    shopify_variant.inventory_policy = if variant.quantity < 1
+      "deny"
+    else
+      "continue"
+    end
   end
 
   def delete_metafields(namespace)
